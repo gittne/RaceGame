@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &487543347
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1446504381291399488, guid: 74bd61e657588044ca4caaae97a6e693, type: 3}
+      propertyPath: m_Name
+      value: Boarkarttestprefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030689451475975171, guid: 74bd61e657588044ca4caaae97a6e693, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030689451475975171, guid: 74bd61e657588044ca4caaae97a6e693, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.497459
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030689451475975171, guid: 74bd61e657588044ca4caaae97a6e693, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030689451475975171, guid: 74bd61e657588044ca4caaae97a6e693, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.6605313
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030689451475975171, guid: 74bd61e657588044ca4caaae97a6e693, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030689451475975171, guid: 74bd61e657588044ca4caaae97a6e693, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030689451475975171, guid: 74bd61e657588044ca4caaae97a6e693, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030689451475975171, guid: 74bd61e657588044ca4caaae97a6e693, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030689451475975171, guid: 74bd61e657588044ca4caaae97a6e693, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030689451475975171, guid: 74bd61e657588044ca4caaae97a6e693, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2030689451475975171, guid: 74bd61e657588044ca4caaae97a6e693, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 74bd61e657588044ca4caaae97a6e693, type: 3}
 --- !u!1 &818267377
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +264,63 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1290604253
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: edcd9b070bee7df4894a0e71c4cc8085, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edcd9b070bee7df4894a0e71c4cc8085, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.499231
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edcd9b070bee7df4894a0e71c4cc8085, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edcd9b070bee7df4894a0e71c4cc8085, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.2795208
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edcd9b070bee7df4894a0e71c4cc8085, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edcd9b070bee7df4894a0e71c4cc8085, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edcd9b070bee7df4894a0e71c4cc8085, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edcd9b070bee7df4894a0e71c4cc8085, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edcd9b070bee7df4894a0e71c4cc8085, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edcd9b070bee7df4894a0e71c4cc8085, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edcd9b070bee7df4894a0e71c4cc8085, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: edcd9b070bee7df4894a0e71c4cc8085, type: 3}
+      propertyPath: m_Name
+      value: BoarKart_suspension_Front_L
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: edcd9b070bee7df4894a0e71c4cc8085, type: 3}
 --- !u!1 &1492916752
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,5 +413,93 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1956666371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1956666372}
+  m_Layer: 0
+  m_Name: Boarkart prefab test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1956666372
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956666371}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.2696, y: 0, z: 2.1632}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2061972379
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 6629066530d5cab4eae2bf1ead7f4991, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6629066530d5cab4eae2bf1ead7f4991, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.804699
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6629066530d5cab4eae2bf1ead7f4991, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6629066530d5cab4eae2bf1ead7f4991, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.32
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6629066530d5cab4eae2bf1ead7f4991, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6629066530d5cab4eae2bf1ead7f4991, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6629066530d5cab4eae2bf1ead7f4991, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6629066530d5cab4eae2bf1ead7f4991, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6629066530d5cab4eae2bf1ead7f4991, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6629066530d5cab4eae2bf1ead7f4991, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6629066530d5cab4eae2bf1ead7f4991, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6629066530d5cab4eae2bf1ead7f4991, type: 3}
+      propertyPath: m_Name
+      value: BoarKart_test
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6629066530d5cab4eae2bf1ead7f4991, type: 3}
