@@ -1,28 +1,24 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
 
 [System.Serializable]
 public class AxleInfo
 {
     public WheelCollider leftWheel;
     public WheelCollider rightWheel;
-    public bool forward;
+    public bool motor;
     public bool steering;
 }
 
 public class KartController : MonoBehaviour
 {
-    public List<AxleInfo> axleInfos; // the information about each individual axle
-    public float maxMotorTorque; // maximum torque the motor can apply to wheel
-    public float maxSteeringAngle; // maximum steer angle the wheel can have
-    [SerializeField] float topSpeed;
-    [SerializeField] float boostMultiplier;
-    [SerializeField] Camera cam;
-    [SerializeField] TextMeshProUGUI SpeedOMeter;
-    Rigidbody rigBod;
+    [SerializeField] List<AxleInfo> axleInfos;
+    [SerializeField] float maxMotorTorque;
+    [SerializeField] float maxSteeringAngle;
 
+    // finds the corresponding visual wheel
+    // correctly applies the transform
     public void ApplyLocalPositionToVisuals(WheelCollider collider)
     {
         if (collider.transform.childCount == 0)
@@ -40,17 +36,10 @@ public class KartController : MonoBehaviour
         visualWheel.transform.rotation = rotation;
     }
 
-    void Start()
+    public void FixedUpdate()
     {
-        rigBod = GetComponent<Rigidbody>();
-    }
-
-    public void Update()
-    {
-        float motorForward = maxMotorTorque * Input.GetAxis("Vertical");
-        float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
-        cam.fieldOfView = 60;
-        SpeedOMeter.text = (rigBod.velocity.magnitude * 3.6).ToString("0") + (" km/h");
+        float motor = maxMotorTorque * Input.GetAxisRaw("Accelerate");
+        float steering = maxSteeringAngle * Input.GetAxisRaw("Horizontal");
 
         foreach (AxleInfo axleInfo in axleInfos)
         {
@@ -59,32 +48,13 @@ public class KartController : MonoBehaviour
                 axleInfo.leftWheel.steerAngle = steering;
                 axleInfo.rightWheel.steerAngle = steering;
             }
-            if (axleInfo.forward)
+            if (axleInfo.motor)
             {
-                axleInfo.leftWheel.motorTorque = motorForward;
-                axleInfo.rightWheel.motorTorque = motorForward;
-            }
-            if (Input.GetButton("Fire1") && Input.GetAxis("Vertical") > 0)
-            {
-                axleInfo.leftWheel.motorTorque = motorForward * boostMultiplier;
-                axleInfo.rightWheel.motorTorque = motorForward * boostMultiplier;
-                cam.fieldOfView = 90;
+                axleInfo.leftWheel.motorTorque = motor;
+                axleInfo.rightWheel.motorTorque = motor;
             }
             ApplyLocalPositionToVisuals(axleInfo.leftWheel);
             ApplyLocalPositionToVisuals(axleInfo.rightWheel);
-        }
-
-        Debug.Log(motorForward);
-
-        if (Input.GetButton("Drift"))
-        {
-
-        }
-
-        if (Input.GetButtonDown("Reset"))
-        {
-            GameObject.FindGameObjectWithTag("TestCar").transform.position = new Vector3(142, 0.94f, 228);
-            GameObject.FindGameObjectWithTag("TestCar").transform.rotation = new Quaternion(0, 0, 0, 0);
         }
     }
 }
