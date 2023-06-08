@@ -60,7 +60,4 @@ crashlytics-build.properties
 
 ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json
 *.json
-*.json
-UserSettings/EditorUserSettings.asset
-*.json
 UserSettings/EditorUserSettings.asset
