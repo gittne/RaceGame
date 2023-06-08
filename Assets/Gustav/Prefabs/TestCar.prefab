@@ -866,7 +866,7 @@ MonoBehaviour:
     steering: 1
   - leftWheel: {fileID: 3687241758210701458}
     rightWheel: {fileID: 3687241756791538904}
-    motor: 0
+    motor: 1
     steering: 0
   maxMotorTorque: 3500
   maxSteeringAngle: 35
