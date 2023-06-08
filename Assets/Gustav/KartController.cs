@@ -38,7 +38,7 @@ public class KartController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        float motor = maxMotorTorque * Input.GetAxisRaw("Accelerate");
+        float motor = maxMotorTorque * Input.GetAxisRaw("Vertical");
         float steering = maxSteeringAngle * Input.GetAxisRaw("Horizontal");
 
         foreach (AxleInfo axleInfo in axleInfos)
