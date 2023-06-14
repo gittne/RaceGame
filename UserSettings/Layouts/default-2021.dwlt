@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 90
+  controlID: 110
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -68,8 +68,8 @@ MonoBehaviour:
     y: 0
     width: 433
     height: 947
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -94,8 +94,8 @@ MonoBehaviour:
     y: 0
     width: 317
     height: 487
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 91
+  controlID: 100
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 92
+  controlID: 101
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -317,22 +317,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Bens/Track Pieces/Tesing track
+    - Assets
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Bens/Track Pieces/Tesing track
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Ben\Documents\GitHub\RaceGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 4c900000
-    m_LastClickedID: 36940
-    m_ExpandedIDs: 00000000a45b0000b05b0000b25b0000c45b000000ca9a3b
+    m_SelectedIDs: ae5c0000
+    m_LastClickedID: 23726
+    m_ExpandedIDs: 00000000ae5c0000b85c0000ce5c000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -360,7 +360,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000a45b0000
+    m_ExpandedIDs: 00000000ae5c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -488,23 +488,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 80680000
+      m_SelectedIDs: a65a0000
       m_LastClickedID: 0
-      m_ExpandedIDs: 74dafdff4af5fefff8fffeff8c09ffff404fffff66b9ffff20c9ffff28c9ffff3ec9ffff2efbffff38fbffff
+      m_ExpandedIDs: 20faffff62faffff72faffff96faffffc4faffff38fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: TestCar
-        m_OriginalName: TestCar
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -111608
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 4}
       m_SearchString: 
@@ -772,9 +772,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 477.6198, y: 15.129738, z: 528.40955}
+    m_Target: {x: 355.5344, y: 87.984665, z: 321.60974}
     speed: 2
-    m_Value: {x: 477.6198, y: 15.129738, z: 528.40955}
+    m_Value: {x: 355.5344, y: 87.984665, z: 321.60974}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -821,13 +821,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.29669964, y: 0.61155784, z: -0.2660117, w: -0.68371445}
+    m_Target: {x: 0.041930996, y: 0.8623746, z: -0.49979788, w: 0.07096568}
     speed: 2
-    m_Value: {x: -0.29973346, y: 0.6102745, z: -0.26872668, w: -0.6822835}
+    m_Value: {x: 0.042031407, y: 0.86150235, z: -0.5010202, w: 0.07089273}
   m_Size:
-    m_Target: 61.982685
+    m_Target: 453.96896
     speed: 2
-    m_Value: 61.982685
+    m_Value: 434.42007
   m_Ortho:
     m_Target: 0
     speed: 2
