@@ -111,7 +111,11 @@ public class SCR_KartController : MonoBehaviour
 
         //Raycast ground check
         RaycastHit hit;
-        isKartGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 1f, groundLayer);
+        isKartGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 1f, groundLayer) 
+            || Physics.Raycast(transform.position, -transform.forward, out hit, 1f, groundLayer)
+            || Physics.Raycast(transform.position, transform.forward, out hit, 1f, groundLayer)
+            || Physics.Raycast(transform.position, -transform.right, out hit, 1f, groundLayer)
+            || Physics.Raycast(transform.position, transform.right, out hit, 1f, groundLayer);
 
         //Rotates kart to be parallel to ground
         Quaternion targetRotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
@@ -135,6 +139,13 @@ public class SCR_KartController : MonoBehaviour
         }
 
         kartRigidbody.MoveRotation(transform.rotation);
+
+        RaycastHit groundHit;
+        if(Physics.Raycast(groundChecker.transform.position, -transform.up, out groundHit, 1f, groundLayer))
+        {
+            Quaternion targetRotation = Quaternion.FromToRotation(transform.up, groundHit.normal) * transform.rotation;
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, alignmenSpeed * Time.deltaTime);
+        }
     }
 
     public bool isGrounded
