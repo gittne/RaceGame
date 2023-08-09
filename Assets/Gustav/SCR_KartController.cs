@@ -33,9 +33,10 @@ public class SCR_KartController : MonoBehaviour
     [SerializeField] float driftTurnValue;
     [SerializeField] float boostTurnValue;
 
-    //Align to ground value
-    [Header("Ground Alignment Time")]
+    //Align to ground values
+    [Header("Ground Alignment")]
     [SerializeField] float alignmenSpeed;
+    [SerializeField] GameObject groundChecker;
 
     //Drag values
     [Header("Drag Values")]

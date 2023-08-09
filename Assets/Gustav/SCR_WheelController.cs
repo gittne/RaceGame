@@ -8,11 +8,16 @@ public class SCR_WheelController : MonoBehaviour
     [Header("Wheel Related Fields")]
     [SerializeField] GameObject[] wheelsToRotate;
     [SerializeField] float rotationSpeed;
+    [SerializeField] ParticleSystem[] smokeParticles;
 
     //Steering axel related values
     [Header("Steering Axel Fields")]
     [SerializeField] GameObject steeringAxel;
     [SerializeField] Animator axelAnimator;
+
+    //Boost Effects
+    [Header("Boost Particle Effects")]
+    [SerializeField] ParticleSystem[] boostParticles;
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +30,29 @@ public class SCR_WheelController : MonoBehaviour
     {
         RotateWheels();
         RotateAxel();
+        ParticleEffects();
     }
 
+    void ParticleEffects()
+    {
+        if (Input.GetButton("Drift") && Input.GetAxisRaw("Accelerate") != 0)
+        {
+            foreach (ParticleSystem driftSmoke in smokeParticles)
+            {
+                driftSmoke.Emit(1);
+            }
+        }
+
+        if (Input.GetButton("Boost") && Input.GetAxisRaw("Accelerate") != 0)
+        {
+            foreach (ParticleSystem boostFire in boostParticles)
+            {
+                boostFire.Emit(1);
+            }
+        }
+    }
+
+    //Rotates the wheels around each axels
     void RotateWheels()
     {
         float gasInput = Input.GetAxisRaw("Accelerate");
@@ -37,24 +63,36 @@ public class SCR_WheelController : MonoBehaviour
         }
     }
 
+    //Rotates the front axel when steering
     void RotateAxel()
     {
         float steeringInput = Input.GetAxisRaw("Horizontal");
+        float gasInput = Input.GetAxisRaw("Accelerate");
 
-        if (steeringInput > 0)
+        if (steeringInput > 0 && gasInput > 0)
         {
-            axelAnimator.SetBool("goingLeft", false);
-            axelAnimator.SetBool("goingRight", true);
+            axelAnimator.SetBool("turnLeft", false);
+            axelAnimator.SetBool("turnRight", true);
         }
-        else if(steeringInput < 0)
+        else if(steeringInput < 0 && gasInput > 0)
         {
-            axelAnimator.SetBool("goingRight", false);
-            axelAnimator.SetBool("goingLeft", true);
+            axelAnimator.SetBool("turnRight", false);
+            axelAnimator.SetBool("turnLeft", true);
+        }
+        else if(steeringInput > 0 && gasInput < 0)
+        {
+            axelAnimator.SetBool("turnRight", false);
+            axelAnimator.SetBool("turnLeft", true);
+        }
+        else if (steeringInput < 0 && gasInput < 0)
+        {
+            axelAnimator.SetBool("turnLeft", false);
+            axelAnimator.SetBool("turnRight", true);
         }
         else
         {
-            axelAnimator.SetBool("goingLeft", false);
-            axelAnimator.SetBool("goingRight", false);
+            axelAnimator.SetBool("turnLeft", false);
+            axelAnimator.SetBool("turnRight", false);
         }
     }
 }
