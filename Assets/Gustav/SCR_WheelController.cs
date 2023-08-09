@@ -9,6 +9,9 @@ public class SCR_WheelController : MonoBehaviour
     [SerializeField] GameObject[] wheelsToRotate;
     [SerializeField] float rotationSpeed;
     [SerializeField] ParticleSystem[] smokeParticles;
+    [SerializeField] TrailRenderer[] skidmarks;
+    bool isDrifting;
+    bool isBoosting;
 
     //Steering axel related values
     [Header("Steering Axel Fields")]
@@ -35,20 +38,43 @@ public class SCR_WheelController : MonoBehaviour
 
     void ParticleEffects()
     {
-        if (Input.GetButton("Drift") && Input.GetAxisRaw("Accelerate") != 0)
+        if (Input.GetButton("Drift") && Input.GetAxisRaw("Accelerate") != 0 && !isBoosting)
         {
             foreach (ParticleSystem driftSmoke in smokeParticles)
             {
                 driftSmoke.Emit(1);
+                isDrifting = true;
+                foreach (TrailRenderer skidmarks in skidmarks)
+                {
+                    skidmarks.emitting = true;
+                }
+            }
+        }
+        else
+        {
+            isDrifting = false;
+            foreach (TrailRenderer skidmarks in skidmarks)
+            {
+                skidmarks.emitting = false;
             }
         }
 
-        if (Input.GetButton("Boost") && Input.GetAxisRaw("Accelerate") != 0)
+        if (Input.GetButton("Boost") && Input.GetAxisRaw("Accelerate") != 0 && !isDrifting)
         {
             foreach (ParticleSystem boostFire in boostParticles)
             {
                 boostFire.Emit(1);
+                isBoosting = true;
+                foreach (TrailRenderer skidmarks in skidmarks)
+                {
+                    skidmarks.emitting = true;
+                }
             }
+        }
+        else
+        {
+            isBoosting = false;
+            
         }
     }
 
