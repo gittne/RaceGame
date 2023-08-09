@@ -109,8 +109,6 @@ public class SCR_KartController : MonoBehaviour
             transform.Rotate(0, newRotation, 0, Space.World);
         }
 
-        //Debug.Log("The current speed of the kart is: " + logicBallRigidbody.velocity.magnitude);
-
         //Raycast ground check
         RaycastHit hit;
         isKartGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 1f, groundLayer);
@@ -130,11 +128,18 @@ public class SCR_KartController : MonoBehaviour
         {
             logicBallRigidbody.AddForce(transform.forward * moveInput, ForceMode.Acceleration);
         }
+
         else
         {
             logicBallRigidbody.AddForce(transform.up * -30f);
         }
 
         kartRigidbody.MoveRotation(transform.rotation);
+    }
+
+    public bool isGrounded
+    {
+        get { return isKartGrounded; }
+        set { isKartGrounded = value; }
     }
 }

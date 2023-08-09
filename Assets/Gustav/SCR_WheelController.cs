@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SCR_WheelController : MonoBehaviour
 {
+    SCR_KartController kartController;
+
     //Wheel related values
     [Header("Wheel Related Fields")]
     [SerializeField] GameObject[] wheelsToRotate;
@@ -25,7 +27,7 @@ public class SCR_WheelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        kartController = GetComponent<SCR_KartController>();
     }
 
     // Update is called once per frame
@@ -38,12 +40,15 @@ public class SCR_WheelController : MonoBehaviour
 
     void ParticleEffects()
     {
-        if (Input.GetButton("Drift") && Input.GetAxisRaw("Accelerate") != 0 && !isBoosting)
+        if (Input.GetButton("Drift") && Input.GetAxisRaw("Accelerate") != 0 && !isBoosting && kartController.isGrounded)
         {
             foreach (ParticleSystem driftSmoke in smokeParticles)
             {
                 driftSmoke.Emit(1);
                 isDrifting = true;
+            }
+            if (kartController.isGrounded)
+            {
                 foreach (TrailRenderer skidmarks in skidmarks)
                 {
                     skidmarks.emitting = true;
@@ -65,6 +70,9 @@ public class SCR_WheelController : MonoBehaviour
             {
                 boostFire.Emit(1);
                 isBoosting = true;
+            }
+            if (kartController.isGrounded)
+            {
                 foreach (TrailRenderer skidmarks in skidmarks)
                 {
                     skidmarks.emitting = true;
@@ -74,7 +82,6 @@ public class SCR_WheelController : MonoBehaviour
         else
         {
             isBoosting = false;
-            
         }
     }
 
