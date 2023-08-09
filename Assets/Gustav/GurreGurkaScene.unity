@@ -2660,6 +2660,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FurlturKart4
       objectReference: {fileID: 0}
+    - target: {fileID: 1567139077929675588, guid: 8ddf4c9336d4d2846b05e5f17742e94c, type: 3}
+      propertyPath: m_TagString
+      value: Kart
+      objectReference: {fileID: 0}
     - target: {fileID: 1567139077929675590, guid: 8ddf4c9336d4d2846b05e5f17742e94c, type: 3}
       propertyPath: m_RootOrder
       value: 3
