@@ -6,9 +6,9 @@ public class SCR_CheckpointSingle : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Kart"))
+        if (other.CompareTag("Kart") == true)
         {
-            Debug.Log("Checkpoint, yay!");
+            Debug.Log("Irra");
         }
     }
 }

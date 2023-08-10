@@ -64,7 +64,7 @@ public class SCR_WheelController : MonoBehaviour
             }
         }
 
-        if (Input.GetButton("Boost") && Input.GetAxisRaw("Accelerate") != 0 && !isDrifting)
+        if (Input.GetButton("Boost") && Input.GetAxisRaw("Accelerate") != 0 && !isDrifting && kartController.boostBuildup < kartController.boostThreshold)
         {
             foreach (ParticleSystem boostFire in boostParticles)
             {
