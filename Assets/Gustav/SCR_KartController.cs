@@ -68,12 +68,6 @@ public class SCR_KartController : MonoBehaviour
 
     private void Start()
     {
-        multiplayerAvatar = GetComponent<Alteruna.Avatar>();
-        if (!multiplayerAvatar.IsOwner)
-        {
-            return;
-        }
-
         //Detaches the logicball and rigidbody from the car
         logicBallRigidbody.transform.parent = null;
         kartRigidbody.transform.parent = null;
@@ -88,10 +82,6 @@ public class SCR_KartController : MonoBehaviour
 
     private void Update()
     {
-        if (!multiplayerAvatar.IsOwner)
-        {
-            return;
-        }
         //Movement inputs
         gasInput = Input.GetAxisRaw("Accelerate");
         reverseInput = Input.GetAxisRaw("Reverse");
@@ -182,10 +172,6 @@ public class SCR_KartController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!multiplayerAvatar.IsOwner)
-        {
-            return;
-        }
         //Forces added to the logicball in order to move it when on the ground
         //Otherwise it sends the ball down
         if (isKartGrounded)
