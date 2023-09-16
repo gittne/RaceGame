@@ -11,7 +11,8 @@ public class SCR_KartController : MonoBehaviour
     //Base code provided by SpawnCampGames: https://www.youtube.com/watch?v=TBIYSksI10k
 
     //Logic values
-    float moveInput;
+    float gasInput;
+    float reverseInput;
     float turnInput;
     float turnLogicValue;
     float standardSpeed;
@@ -80,20 +81,22 @@ public class SCR_KartController : MonoBehaviour
     private void Update()
     {
         //Movement inputs
-        moveInput = Input.GetAxisRaw("Accelerate");
+        gasInput = Input.GetAxisRaw("Accelerate");
+        reverseInput = Input.GetAxisRaw("Reverse");
         turnInput = Input.GetAxisRaw("Horizontal");
 
         //Checks if the player is boosting
-        if (Input.GetButton("Boost") && moveInput > 0 &&!isDrifting && boostValue < standardBoostThreshold)
+        if (Input.GetButton("Boost") && gasInput > 0 &&!isDrifting && boostValue < standardBoostThreshold)
         {
-            moveInput *=  boostSpeed;
+            gasInput *=  boostSpeed;
             turnLogicValue = boostTurnValue;
             boostValue += standardBoostBuildup * Time.deltaTime;
             isBoosting = true;
         }
         else
         {
-            moveInput *= moveInput > 0 ? fwdSpeed : revSpeed;
+            gasInput = gasInput * fwdSpeed;
+            reverseInput = reverseInput * revSpeed;
             isBoosting = false;
         }
         if (Input.GetButton("DebugTimer"))
@@ -109,7 +112,7 @@ public class SCR_KartController : MonoBehaviour
         if (!isKartGrounded || logicBallRigidbody.velocity.magnitude > 1.3)
         {
             //If the player's drifting the turning value increases and speed decreases
-            if (Input.GetButton("Drift") && moveInput > 0 && turnInput != 0 && !isBoosting)
+            if (Input.GetButton("Drift") && gasInput > 0 && turnInput != 0 && !isBoosting)
             {
                 turnLogicValue = driftTurnValue;
                 fwdSpeed = driftSpeed;
@@ -171,7 +174,16 @@ public class SCR_KartController : MonoBehaviour
         //Otherwise it sends the ball down
         if (isKartGrounded)
         {
-            logicBallRigidbody.AddForce(transform.forward * moveInput, ForceMode.Acceleration);
+            if (gasInput <= 0)
+            {
+                gasInput = 0;
+            }
+            if (reverseInput <= 0)
+            {
+                reverseInput = 0;
+            }
+            logicBallRigidbody.AddForce(transform.forward * gasInput, ForceMode.Acceleration);
+            logicBallRigidbody.AddForce(transform.forward * -reverseInput, ForceMode.Acceleration);
         }
         else
         {
@@ -180,6 +192,8 @@ public class SCR_KartController : MonoBehaviour
 
         kartRigidbody.MoveRotation(transform.rotation);
     }
+
+
 
     public bool isGrounded
     {
@@ -202,5 +216,11 @@ public class SCR_KartController : MonoBehaviour
     {
         get { return standardBoostThreshold; }
         set { standardBoostThreshold = value; }
+    }
+
+    public Rigidbody logicBall
+    {
+        get { return logicBallRigidbody; }
+        set { logicBallRigidbody = value; }
     }
 }

@@ -48,6 +48,5 @@ public class SCR_KartHUDController : MonoBehaviour
     void Boost()
     {
         boostBar.value = (kartController.boostThreshold - kartController.boostBuildup) / kartController.boostThreshold;
-
     }
 }

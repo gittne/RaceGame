@@ -14,6 +14,7 @@ public class SCR_WheelController : MonoBehaviour
     [SerializeField] TrailRenderer[] skidmarks;
     bool isDrifting;
     bool isBoosting;
+    bool isGoingForward;
 
     //Steering axel related values
     [Header("Steering Axel Fields")]
@@ -88,11 +89,26 @@ public class SCR_WheelController : MonoBehaviour
     //Rotates the wheels around each axels
     void RotateWheels()
     {
-        float gasInput = Input.GetAxisRaw("Accelerate");
+        // Check if the kart is moving (forward or backward)
+        bool isMoving = kartController.logicBall.velocity.magnitude > 0;
 
-        foreach (var wheel in wheelsToRotate)
+        //The velocity of the kart forwards and backwards (Z-axis)
+        Vector3 velocity = kartController.logicBall.velocity;
+        float speed = velocity.z;
+
+        if (isMoving)
         {
-            wheel.transform.Rotate(Time.deltaTime * gasInput * rotationSpeed, 0, 0, Space.Self);
+            foreach (var wheel in wheelsToRotate)
+            {
+                if (speed > 0)
+                {
+                    wheel.transform.Rotate(Time.deltaTime * kartController.logicBall.velocity.magnitude * -rotationSpeed, 0, 0, Space.Self);
+                }
+                else if (speed < 0)
+                {
+                    wheel.transform.Rotate(Time.deltaTime * kartController.logicBall.velocity.magnitude * rotationSpeed, 0, 0, Space.Self);
+                }
+            }
         }
     }
 
@@ -101,6 +117,7 @@ public class SCR_WheelController : MonoBehaviour
     {
         float steeringInput = Input.GetAxisRaw("Horizontal");
         float gasInput = Input.GetAxisRaw("Accelerate");
+        float reverseInput = Input.GetAxisRaw("Reverse");
 
         if (steeringInput > 0 && gasInput > 0)
         {
@@ -112,12 +129,12 @@ public class SCR_WheelController : MonoBehaviour
             axelAnimator.SetBool("turnRight", false);
             axelAnimator.SetBool("turnLeft", true);
         }
-        else if(steeringInput > 0 && gasInput < 0)
+        else if(steeringInput > 0 && reverseInput > 0)
         {
             axelAnimator.SetBool("turnRight", false);
             axelAnimator.SetBool("turnLeft", true);
         }
-        else if (steeringInput < 0 && gasInput < 0)
+        else if (steeringInput < 0 && reverseInput > 0)
         {
             axelAnimator.SetBool("turnLeft", false);
             axelAnimator.SetBool("turnRight", true);
