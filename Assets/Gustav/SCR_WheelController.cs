@@ -5,6 +5,7 @@ using UnityEngine;
 public class SCR_WheelController : MonoBehaviour
 {
     SCR_KartController kartController;
+    Alteruna.Avatar multiplayerAvatar;
 
     //Wheel related values
     [Header("Wheel Related Fields")]
@@ -28,12 +29,22 @@ public class SCR_WheelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        multiplayerAvatar = GetComponent<Alteruna.Avatar>();
+        if (!multiplayerAvatar.IsOwner)
+        {
+            return;
+        }
+
         kartController = GetComponent<SCR_KartController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!multiplayerAvatar.IsOwner)
+        {
+            return;
+        }
         RotateWheels();
         RotateAxel();
         ParticleEffects();
