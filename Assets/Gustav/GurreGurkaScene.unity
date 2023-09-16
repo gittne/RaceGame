@@ -3125,19 +3125,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1467086469558809447, guid: 17c3d50f9a25e2645ade0a03deb7bc06, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9997287
+      value: 0.9997286
       objectReference: {fileID: 0}
     - target: {fileID: 1467086469558809447, guid: 17c3d50f9a25e2645ade0a03deb7bc06, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.023296392
+      value: 0.023296408
       objectReference: {fileID: 0}
     - target: {fileID: 1467086469558809447, guid: 17c3d50f9a25e2645ade0a03deb7bc06, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000014901161
+      value: 0.000000014901161
       objectReference: {fileID: 0}
     - target: {fileID: 1467086469558809447, guid: 17c3d50f9a25e2645ade0a03deb7bc06, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000037252903
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1467086470962466496, guid: 17c3d50f9a25e2645ade0a03deb7bc06, type: 3}
       propertyPath: m_RootOrder
@@ -3186,6 +3186,10 @@ PrefabInstance:
     - target: {fileID: 1467086470962466498, guid: 17c3d50f9a25e2645ade0a03deb7bc06, type: 3}
       propertyPath: m_Name
       value: FurlturKart5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467086470962466511, guid: 17c3d50f9a25e2645ade0a03deb7bc06, type: 3}
+      propertyPath: rotationSpeed
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 1467086471584950796, guid: 17c3d50f9a25e2645ade0a03deb7bc06, type: 3}
       propertyPath: m_AnchorMax.x
