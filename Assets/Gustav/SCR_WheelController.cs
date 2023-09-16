@@ -139,6 +139,16 @@ public class SCR_WheelController : MonoBehaviour
             axelAnimator.SetBool("turnLeft", false);
             axelAnimator.SetBool("turnRight", true);
         }
+        else if (steeringInput > 0 && gasInput <= 0 && reverseInput <= 0)
+        {
+            axelAnimator.SetBool("turnRight", true);
+            axelAnimator.SetBool("turnLeft", false);
+        }
+        else if (steeringInput < 0 && gasInput <= 0 && reverseInput <= 0)
+        {
+            axelAnimator.SetBool("turnRight", false);
+            axelAnimator.SetBool("turnLeft", true);
+        }
         else
         {
             axelAnimator.SetBool("turnLeft", false);

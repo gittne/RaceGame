@@ -43,6 +43,7 @@ public class SCR_KartController : MonoBehaviour
     [SerializeField] float standardTurnValue;
     [SerializeField] float driftTurnValue;
     [SerializeField] float boostTurnValue;
+    [SerializeField] float speedTurnThreshold;
 
     //Align to ground values
     [Header("Ground Alignment Values")]
@@ -109,7 +110,7 @@ public class SCR_KartController : MonoBehaviour
 
         //Sets cars rotation
         float newRotation = turnInput * turnLogicValue * Time.deltaTime;
-        if (!isKartGrounded || logicBallRigidbody.velocity.magnitude > 1.3)
+        if (!isKartGrounded || logicBallRigidbody.velocity.magnitude > speedTurnThreshold)
         {
             //If the player's drifting the turning value increases and speed decreases
             if (Input.GetButton("Drift") && gasInput > 0 && turnInput != 0 && !isBoosting)
@@ -222,5 +223,11 @@ public class SCR_KartController : MonoBehaviour
     {
         get { return logicBallRigidbody; }
         set { logicBallRigidbody = value; }
+    }
+
+    public float speedTurn
+    {
+        get { return speedTurnThreshold; }
+        set { speedTurnThreshold = value; }
     }
 }
