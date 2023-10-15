@@ -19,10 +19,10 @@ public class SCR_KartController : MonoBehaviour
     float standardGroundDrag;
     float boostValue;
     float airtime;
+    float pushTimer;
     bool isKartGrounded;
     bool isDrifting;
     bool isBoosting;
-    Alteruna.Avatar multiplayerAvatar;
 
     //Speed values
     [Header("Movement Values")]
@@ -38,6 +38,7 @@ public class SCR_KartController : MonoBehaviour
     [SerializeField] float standardBoostDriftRefill;
     [SerializeField] float standardBoostAirtimeRefill;
     [SerializeField] float standardBoostAirtimeBuffert;
+    [SerializeField] float standardBoostPushCost;
 
     //Turn values
     [Header("Turn Values")]
@@ -45,6 +46,11 @@ public class SCR_KartController : MonoBehaviour
     [SerializeField] float driftTurnValue;
     [SerializeField] float boostTurnValue;
     [SerializeField] float speedTurnThreshold;
+
+    //Side push values
+    [Header("Side Pushing Values")]
+    [SerializeField] float pushForce;
+    [SerializeField] float pushResetThreshold;
 
     //Align to ground values
     [Header("Ground Alignment Values")]
@@ -87,28 +93,136 @@ public class SCR_KartController : MonoBehaviour
         reverseInput = Input.GetAxisRaw("Reverse");
         turnInput = Input.GetAxisRaw("Horizontal");
 
-        //Checks if the player is boosting
-        if (Input.GetButton("Boost") && gasInput > 0 &&!isDrifting && boostValue < standardBoostThreshold)
+        GasReverseInput();
+
+        //Sets karts position to logicball's position
+        transform.position = logicBallRigidbody.transform.position;
+
+        TurnInput();
+
+        RotationCheck();
+
+        SidePush();
+
+        //Checks if kart is in the air and changes drag accordingly
+        logicBallRigidbody.drag = isKartGrounded ? groundDrag : airDrag;
+    }
+
+    private void FixedUpdate()
+    {
+        AddForceToKart(gasInput, reverseInput);
+
+        kartRigidbody.MoveRotation(transform.rotation);
+    }
+
+    void AddForceToKart(float gas, float reverse)
+    {
+        //Forces added to the logicball in order to move it when on the ground
+        if (isKartGrounded)
         {
-            gasInput *=  boostSpeed;
+            if (gas <= 0)
+            {
+                gas = 0;
+            }
+            if (reverse <= 0)
+            {
+                reverse = 0;
+            }
+            logicBallRigidbody.AddForce(transform.forward * gas, ForceMode.Acceleration);
+            logicBallRigidbody.AddForce(transform.forward * -reverse, ForceMode.Acceleration);
+        }
+        //Otherwise it sends the ball down
+        else
+        {
+            logicBallRigidbody.AddForce(transform.up * -40f);
+        }
+    }
+
+    void GasReverseInput()
+    {
+        //Checks if the player is boosting, if so then set speed to boost speed
+        if (Input.GetButton("Boost") && gasInput > 0 && !isDrifting && boostValue < standardBoostThreshold)
+        {
+            gasInput *= boostSpeed;
             turnLogicValue = boostTurnValue;
             boostValue += standardBoostBuildup * Time.deltaTime;
             isBoosting = true;
         }
+        //If not, set the speed to normal forward speed
         else
         {
             gasInput = gasInput * fwdSpeed;
             reverseInput = reverseInput * revSpeed;
             isBoosting = false;
         }
+        //Resets boost if the debug button is pressed
         if (Input.GetButton("DebugTimer"))
         {
             boostValue = 0;
         }
+    }
 
-        //Sets karts position to logicball's position
-        transform.position = logicBallRigidbody.transform.position;
+    void RotationCheck()
+    {
+        //Raycast ground check
+        RaycastHit hit;
+        isKartGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 1f, groundLayer)
+            || Physics.Raycast(transform.position, -transform.forward, out hit, 1f, groundLayer)
+            || Physics.Raycast(transform.position, transform.forward, out hit, 1f, groundLayer)
+            || Physics.Raycast(transform.position, -transform.right, out hit, 1f, groundLayer)
+            || Physics.Raycast(transform.position, transform.right, out hit, 1f, groundLayer);
 
+        //Rotates kart to be parallel to ground
+        Quaternion targetRotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, alignmenSpeed * Time.deltaTime);
+
+        //Rotates kart to re-center on the X and Z axis when in the air
+        Quaternion currentAngles = transform.rotation;
+        float yRotation = currentAngles.eulerAngles.y;
+        Quaternion currentRotation = Quaternion.Euler(0, yRotation, 0);
+        if (!isKartGrounded)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, currentRotation, axisResetMultiplier * Time.deltaTime);
+            //Checks if the kart has spent a certain amount of time in the air
+            //If so then start filling up the boost
+            airtime += Time.deltaTime;
+            if (airtime > standardBoostAirtimeBuffert)
+            {
+                boostValue -= standardBoostAirtimeRefill * Time.deltaTime;
+            }
+        }
+        //Resets the airtime when on the ground
+        else
+        {
+            airtime = 0;
+        }
+    }
+
+    void SidePush()
+    {
+        pushTimer += Time.deltaTime;
+
+        if (pushTimer > pushResetThreshold)
+        {
+            //Pushes the kart to the left
+            if (Input.GetButtonDown("SidePushLeft"))
+            {
+                logicBallRigidbody.AddForce(-transform.right * pushForce);
+                boostValue += standardBoostPushCost;
+                pushTimer = 0;
+            }
+            //Pushes the kart to the right
+            if (Input.GetButtonDown("SidePushRight"))
+            {
+                logicBallRigidbody.AddForce(transform.right * pushForce);
+                boostValue += standardBoostPushCost;
+                pushTimer = 0;
+            }
+        }
+    }
+
+    void TurnInput()
+    {
         //Sets cars rotation
         float newRotation = turnInput * turnLogicValue * Time.deltaTime;
         if (!isKartGrounded || logicBallRigidbody.velocity.magnitude > speedTurnThreshold)
@@ -135,67 +249,7 @@ public class SCR_KartController : MonoBehaviour
             }
             transform.Rotate(0, newRotation, 0, Space.World);
         }
-
-        //Raycast ground check
-        RaycastHit hit;
-        isKartGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 1f, groundLayer) 
-            || Physics.Raycast(transform.position, -transform.forward, out hit, 1f, groundLayer)
-            || Physics.Raycast(transform.position, transform.forward, out hit, 1f, groundLayer)
-            || Physics.Raycast(transform.position, -transform.right, out hit, 1f, groundLayer)
-            || Physics.Raycast(transform.position, transform.right, out hit, 1f, groundLayer);
-
-        //Rotates kart to be parallel to ground
-        Quaternion targetRotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, alignmenSpeed * Time.deltaTime);
-
-        //Rotates kart to re-center on the X and Z axis
-        Quaternion currentAngles = transform.rotation;
-        float yRotation = currentAngles.eulerAngles.y;
-        Quaternion currentRotation = Quaternion.Euler(0, yRotation, 0);
-        if (!isKartGrounded)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, currentRotation, axisResetMultiplier * Time.deltaTime);
-            airtime += Time.deltaTime;
-            if (airtime > standardBoostAirtimeBuffert)
-            {
-                boostValue -= standardBoostAirtimeRefill * Time.deltaTime;
-            }
-        }
-        else
-        {
-            airtime = 0;
-        }
-
-        //Checks if kart is in the air and changes drag accordingly
-        logicBallRigidbody.drag = isKartGrounded ? groundDrag : airDrag;
     }
-
-    private void FixedUpdate()
-    {
-        //Forces added to the logicball in order to move it when on the ground
-        //Otherwise it sends the ball down
-        if (isKartGrounded)
-        {
-            if (gasInput <= 0)
-            {
-                gasInput = 0;
-            }
-            if (reverseInput <= 0)
-            {
-                reverseInput = 0;
-            }
-            logicBallRigidbody.AddForce(transform.forward * gasInput, ForceMode.Acceleration);
-            logicBallRigidbody.AddForce(transform.forward * -reverseInput, ForceMode.Acceleration);
-        }
-        else
-        {
-            logicBallRigidbody.AddForce(transform.up * -30f);
-        }
-
-        kartRigidbody.MoveRotation(transform.rotation);
-    }
-
-
 
     public bool isGrounded
     {
