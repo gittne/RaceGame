@@ -41,7 +41,7 @@ public class SCR_WheelController : MonoBehaviour
 
     void ParticleEffects()
     {
-        if (Input.GetButton("Drift") && Input.GetAxisRaw("Accelerate") != 0 && !isBoosting && kartController.isGrounded)
+        if (Input.GetButton("Drift") && Input.GetAxisRaw("Accelerate") > 0 && !isBoosting && kartController.isGrounded)
         {
             foreach (ParticleSystem driftSmoke in smokeParticles)
             {
@@ -65,7 +65,7 @@ public class SCR_WheelController : MonoBehaviour
             }
         }
 
-        if (Input.GetButton("Boost") && Input.GetAxisRaw("Accelerate") != 0 && !isDrifting && kartController.boostBuildup < kartController.boostThreshold)
+        if (Input.GetButton("Boost") && Input.GetAxisRaw("Accelerate") > 0 && !isDrifting && kartController.boostBuildup < kartController.boostThreshold)
         {
             foreach (ParticleSystem boostFire in boostParticles)
             {
