@@ -19,7 +19,8 @@ public class SCR_KartController : MonoBehaviour
     float standardGroundDrag;
     float boostValue;
     float airtime;
-    float pushTimer;
+    float pushResetTimer;
+    float pushDamageTimer;
     bool isKartGrounded;
     bool isDrifting;
     bool isBoosting;
@@ -74,11 +75,11 @@ public class SCR_KartController : MonoBehaviour
 
     private void Start()
     {
-        //Detaches the logicball and rigidbody from the car
+        //Detaches the logicball and rigidbody from the kart
         logicBallRigidbody.transform.parent = null;
         kartRigidbody.transform.parent = null;
 
-        //Set standard values to default to
+        //Set standard values to default values
         turnLogicValue = standardTurnValue;
         standardSpeed = fwdSpeed;
         standardGroundDrag = groundDrag;
@@ -112,6 +113,7 @@ public class SCR_KartController : MonoBehaviour
     {
         AddForceToKart(gasInput, reverseInput);
 
+        //Rotates the rigidbody of the kart
         kartRigidbody.MoveRotation(transform.rotation);
     }
 
@@ -120,6 +122,7 @@ public class SCR_KartController : MonoBehaviour
         //Forces added to the logicball in order to move it when on the ground
         if (isKartGrounded)
         {
+            //Set each axis of the triggers to 0 if not pressed
             if (gas <= 0)
             {
                 gas = 0;
@@ -128,10 +131,11 @@ public class SCR_KartController : MonoBehaviour
             {
                 reverse = 0;
             }
+            //Adds forces to the logic ball rigidbody
             logicBallRigidbody.AddForce(transform.forward * gas, ForceMode.Acceleration);
             logicBallRigidbody.AddForce(transform.forward * -reverse, ForceMode.Acceleration);
         }
-        //Otherwise it sends the ball down
+        //Otherwise it sends the ball down at a constant speed
         else
         {
             logicBallRigidbody.AddForce(transform.up * -40f);
@@ -148,11 +152,11 @@ public class SCR_KartController : MonoBehaviour
             boostValue += standardBoostBuildup * Time.deltaTime;
             isBoosting = true;
         }
-        //If not, set the speed to normal forward speed
+        //If not, set the speed to default speed
         else
         {
-            gasInput = gasInput * fwdSpeed;
-            reverseInput = reverseInput * revSpeed;
+            gasInput *= fwdSpeed;
+            reverseInput *= revSpeed;
             isBoosting = false;
         }
         //Resets boost if the debug button is pressed
@@ -183,6 +187,7 @@ public class SCR_KartController : MonoBehaviour
         if (!isKartGrounded)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, currentRotation, axisResetMultiplier * Time.deltaTime);
+
             //Checks if the kart has spent a certain amount of time in the air
             //If so then start filling up the boost
             airtime += Time.deltaTime;
@@ -200,24 +205,26 @@ public class SCR_KartController : MonoBehaviour
 
     void SidePush()
     {
-        pushTimer += Time.deltaTime;
+        //Timer which keeps track if the kart can push to either side
+        pushResetTimer += Time.deltaTime;
+        pushDamageTimer += Time.deltaTime;
 
-        if (pushTimer > pushResetThreshold)
+        //Pushes the kart to the left
+        if (Input.GetButtonDown("SidePushLeft") && pushResetTimer > pushResetThreshold && boostValue < standardBoostThreshold)
         {
-            //Pushes the kart to the left
-            if (Input.GetButtonDown("SidePushLeft"))
-            {
-                logicBallRigidbody.AddForce(-transform.right * pushForce);
-                boostValue += standardBoostPushCost;
-                pushTimer = 0;
-            }
-            //Pushes the kart to the right
-            if (Input.GetButtonDown("SidePushRight"))
-            {
-                logicBallRigidbody.AddForce(transform.right * pushForce);
-                boostValue += standardBoostPushCost;
-                pushTimer = 0;
-            }
+            logicBallRigidbody.AddForce(-transform.right * pushForce);
+            boostValue += standardBoostPushCost;
+            pushResetTimer = 0;
+            pushDamageTimer = 0;
+        }
+
+        //Pushes the kart to the right
+        if (Input.GetButtonDown("SidePushRight") && pushResetTimer > pushResetThreshold && boostValue < standardBoostThreshold)
+        {
+            logicBallRigidbody.AddForce(transform.right * pushForce);
+            boostValue += standardBoostPushCost;
+            pushResetTimer = 0;
+            pushDamageTimer = 0;
         }
     }
 
@@ -240,6 +247,7 @@ public class SCR_KartController : MonoBehaviour
                 }
                 isDrifting = true;
             }
+            //Otherwise keep the logic values at standard levels
             else
             {
                 turnLogicValue = standardTurnValue;
@@ -247,6 +255,7 @@ public class SCR_KartController : MonoBehaviour
                 groundDrag = standardGroundDrag;
                 isDrifting = false;
             }
+            //Rotates the kart accordingly
             transform.Rotate(0, newRotation, 0, Space.World);
         }
     }
