@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SCR_SidewaysPushDamage : MonoBehaviour
 {
-    [SerializeField] float pushForce;
+    [SerializeField] float pushForceMultiplier;
+    [SerializeField] Vector3[] pushPoints;
 
-    
+
 }
