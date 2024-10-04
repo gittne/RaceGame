@@ -102,11 +102,11 @@ public class SCR_WheelController : MonoBehaviour
             {
                 if (speed > 0)
                 {
-                    wheel.transform.Rotate(Time.deltaTime * kartController.logicBall.velocity.magnitude * -rotationSpeed, 0, 0, Space.Self);
+                    wheel.transform.Rotate(Time.deltaTime * kartController.logicBall.velocity.magnitude * rotationSpeed, 0, 0, Space.Self);
                 }
                 else if (speed < 0)
                 {
-                    wheel.transform.Rotate(Time.deltaTime * kartController.logicBall.velocity.magnitude * rotationSpeed, 0, 0, Space.Self);
+                    wheel.transform.Rotate(Time.deltaTime * kartController.logicBall.velocity.magnitude * -rotationSpeed, 0, 0, Space.Self);
                 }
             }
         }
